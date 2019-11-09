@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Тинькофф Прокат</title>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <img src="src/images/icons/logo-tp.svg" alt="Logo" />
+    </div>
+
+    <div class="content-wrapper">
+      <div class="search-wrapper-default">
+        <div class="search-block">
+          <img
+            class="search-block__icon"
+            src="src/images/icons/search.svg"
+            alt="Search Icon"
+          />
+          <div class="search-block__input-string-wrapper">
+            <input
+              class="search-block__input-string"
+              type="text"
+              autocomplete="off"
+              placeholder="Поиск фильмов по жанрам и актерам"
+            />
+          </div>
+          <div class="search-block__cancel"></div>
+        </div>
+        <div class="search-bar"></div>
+
+        <div class="search-history-block">
+          <div class="search-history-block__elem">Форрест Гамп</div>
+          <div class="search-history-block__elem">Назад в будущее</div>
+          <div class="search-history-block__elem">Бойцовский клуб</div>
+          <div class="search-history-block__elem">Каникулы</div>
+          <div class="search-history-block__elem">Джентельмены удачи</div>
+          <div class="search-history-block__elem">Отец невесты</div>
+          <div class="search-history-block__elem">Гладиатор</div>
+          <div class="search-history-block__elem">Властелин колец</div>
+          <div class="search-history-block__elem">Матрица</div>
+          <div class="search-history-block__elem">
+            Пролетая над гнездом кукушки
+          </div>
+          <div class="search-history-block__elem">Храброе сердце</div>
+        </div>
+      </div>
+
+      <div class="result-wrapper-none">
+        <div class="result-not-found-header">
+          Мы не поняли о чем речь ¯\_(ツ)_/¯
+        </div>
+        <div class="result-header">Нашли 82 фильма</div>
+
+        <div class="result-list">
+          <div class="result-list__poster-item">
+            <img
+              class="result-list__poster-item__image"
+              src="src/images/posters/forrest-gump.jpg"
+            />
+            <div class="result-list__poster-item__decore-background"></div>
+            <div class="result-list__poster-item__description-wrapper">
+              <div class="result-list__poster-item__rating-wrapper">
+                <img src="src/images/icons/perfect.png" alt="Perfect" />
+                <div class="result-list__poster-item__rating">8,9</div>
+              </div>
+              <div class="result-list__poster-item__title">Форрест Гамп</div>
+              <div class="result-list__poster-item__genre">Драма</div>
+              <div class="result-list__poster-item__year">1994</div>
+            </div>
+          </div>
+          <div class="result-list__poster-item">
+            <img
+              class="result-list__poster-item__image"
+              src="src/images/posters/saving-private-ryan.jpg"
+            />
+            <div class="result-list__poster-item__decore-background"></div>
+            <div class="result-list__poster-item__description-wrapper">
+              <div class="result-list__poster-item__rating-wrapper">
+                <img src="src/images/icons/perfect.png" alt="Perfect" />
+                <div class="result-list__poster-item__rating">8,2</div>
+              </div>
+              <div class="result-list__poster-item__title">
+                Спасти рядового Райана
+              </div>
+              <div class="result-list__poster-item__genre">Драма</div>
+              <div class="result-list__poster-item__year">1998</div>
+            </div>
+          </div>
+          <div class="result-list__poster-item">
+            <img
+              class="result-list__poster-item__image"
+              src="src/images/posters/apollo-13.jpg"
+            />
+            <div class="result-list__poster-item__decore-background"></div>
+            <div class="result-list__poster-item__description-wrapper">
+              <div class="result-list__poster-item__rating-wrapper">
+                <img src="src/images/icons/good.png" alt="Good" />
+                <div class="result-list__poster-item__rating">7,7</div>
+              </div>
+              <div class="result-list__poster-item__title">Аполлон 13</div>
+              <div class="result-list__poster-item__genre">Драма</div>
+              <div class="result-list__poster-item__year">1995</div>
+            </div>
+          </div>
+          <div class="result-list__poster-item">
+            <img
+              class="result-list__poster-item__image"
+              src="src/images/posters/inferno.jpg"
+            />
+            <div class="result-list__poster-item__decore-background"></div>
+            <div class="result-list__poster-item__description-wrapper">
+              <div class="result-list__poster-item__rating-wrapper">
+                <img src="src/images/icons/good.png" alt="Good" />
+                <div class="result-list__poster-item__rating">6,3</div>
+              </div>
+              <div class="result-list__poster-item__title">Инферно</div>
+              <div class="result-list__poster-item__genre">Боевик</div>
+              <div class="result-list__poster-item__year">2016</div>
+            </div>
+          </div>
+          <div class="result-list__not-poster-item">
+            <div class="result-list__not-poster-item__wrapper">
+              <div class="result-list__not-poster-item__title">
+                Шпионский мост
+              </div>
+              <div class="result-list__not-poster-item__genre">
+                Боевик, триллер
+              </div>
+              <div class="result-list__not-poster-item__year">2017</div>
+            </div>
+          </div>
+          <div class="result-list__loading-item">
+            <div class="result-list__loading-item__first-strip"></div>
+            <div class="result-list__loading-item__second-strip"></div>
+          </div>
+          <div class="result-list__loading-item">
+            <div class="result-list__loading-item__first-strip"></div>
+            <div class="result-list__loading-item__second-strip"></div>
+          </div>
+          <div class="result-list__poster-item">
+            <img
+              class="result-list__poster-item__image"
+              src="src/images/posters/terminal.jpg"
+            />
+            <div class="result-list__poster-item__decore-background"></div>
+            <div class="result-list__poster-item__description-wrapper">
+              <div class="result-list__poster-item__rating-wrapper">
+                <img src="src/images/icons/perfect.png" alt="Perfect" />
+                <div class="result-list__poster-item__rating">8,1</div>
+              </div>
+              <div class="result-list__poster-item__title">Терминал</div>
+              <div class="result-list__poster-item__genre">Драма</div>
+              <div class="result-list__poster-item__year">2004</div>
+            </div>
+          </div>
+          <div class="result-list__loading-item">
+            <div class="result-list__loading-item__first-strip"></div>
+            <div class="result-list__loading-item__second-strip"></div>
+          </div>
+          <div class="result-list__loading-item">
+            <div class="result-list__loading-item__first-strip"></div>
+            <div class="result-list__loading-item__second-strip"></div>
+          </div>
+          <div class="result-list__loading-item">
+            <div class="result-list__loading-item__first-strip"></div>
+            <div class="result-list__loading-item__second-strip"></div>
+          </div>
+          <div class="result-list__loading-item">
+            <div class="result-list__loading-item__first-strip"></div>
+            <div class="result-list__loading-item__second-strip"></div>
+          </div>
+          <div class="result-list__loading-item">
+            <div class="result-list__loading-item__first-strip"></div>
+            <div class="result-list__loading-item__second-strip"></div>
+          </div>
+          <div class="result-list__loading-item">
+            <div class="result-list__loading-item__first-strip"></div>
+            <div class="result-list__loading-item__second-strip"></div>
+          </div>
+          <div class="result-list__loading-item">
+            <div class="result-list__loading-item__first-strip"></div>
+            <div class="result-list__loading-item__second-strip"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer__string">© 2019 Тинькофф Прокат</div>
+    </div>
+  </body>
+</html>
