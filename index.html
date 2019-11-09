@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
     <title>Тинькофф Прокат</title>
     <meta charset="utf-8" />
@@ -7,16 +7,18 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto"
     />
-    <link rel="stylesheet" href="src/style.css" />
+    <link rel="stylesheet" href="src/layout.css" />
+    <link rel="stylesheet" href="src/search.css" />
+    <link rel="stylesheet" href="src/result.css" />
   </head>
 
   <body>
     <div class="header">
-      <img src="src/images/icons/logo-tp.svg" alt="Logo" />
+      <img class="header__logo" src="src/images/icons/logo-tp.svg" alt="Logo" />
     </div>
 
     <div class="content-wrapper">
-      <div class="search-wrapper-default">
+      <div class="search-wrapper-active">
         <div class="search-block">
           <img
             class="search-block__icon"
@@ -52,7 +54,7 @@
         </div>
       </div>
 
-      <div class="result-wrapper-none">
+      <div class="result-wrapper-live">
         <div class="result-not-found-header">
           Мы не поняли о чем речь ¯\_(ツ)_/¯
         </div>
