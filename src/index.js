@@ -34,7 +34,10 @@ const clearContainer = (container) => {
 const render = (movieData) => {
   const movie = document.createElement('movie-card');
 
-  movie.poster = movieData.poster;
+  if (movieData.poster !== 'N/A') {
+    movie.poster = movieData.poster;
+  }
+
   movie.title = movieData.title;
   movie.year = movieData.year;
   movie.link = movieData.link;

@@ -5,6 +5,7 @@ const movieCardStyles = `
     border-radius: 12px;
     overflow: hidden;
     position: relative;
+    background-color: rgba(255, 255, 255, 0.24);
     height: 100%;
     width: 100%;
   }
@@ -125,7 +126,7 @@ const movieCardStyles = `
 const movieCardHtml = `
     <div class="result-list__poster-item">
         <a href="" class="result-list__poster-item__link">
-            <img class="result-list__poster-item__image" src="" />
+            <img class="result-list__poster-item__image" src="/src/images/placeholder.png" />
             <div class="result-list__poster-item__decore-background"></div>
             <div class="result-list__poster-item__description-wrapper">
                 <div class="result-list__poster-item__rating-wrapper">
