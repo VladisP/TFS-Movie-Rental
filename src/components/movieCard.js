@@ -5,6 +5,8 @@ const movieCardStyles = `
     border-radius: 12px;
     overflow: hidden;
     position: relative;
+    height: 100%;
+    width: 100%;
   }
 
   .result-list__poster-item__link {
