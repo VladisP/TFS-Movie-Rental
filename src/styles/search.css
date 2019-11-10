@@ -171,13 +171,13 @@
 }
 
 .search-block__cancel {
-  background-image: url(images/icons/esc.svg);
+  background-image: url(/src/images/icons/esc.svg);
   width: 48px;
 }
 
 .search-block__cancel:hover {
   cursor: pointer;
-  background-image: url(images/icons/esc_white.svg);
+  background-image: url(/src/images/icons/esc_white.svg);
 }
 
 .search-wrapper-active .search-history-block__elem:hover {
