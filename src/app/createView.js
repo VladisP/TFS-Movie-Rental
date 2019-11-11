@@ -1,24 +1,17 @@
 import { clearContainer } from '../helpers/clearContainer.js';
 import { getDeclension } from '../helpers/getDeclension.js';
-import { searchStates, resultStates } from '../helpers/containersStates.js';
-import { changeContainerState } from '../helpers/changeContainerState.js';
+import { manageSearchState } from '../helpers/viewStateManager.js';
 
 const dMovies = getDeclension('фильм', 'фильма', 'фильмов');
 
 export const createView = () => {
-  const searchForm = document.querySelector(`.${searchStates.default}`);
+  const searchForm = document.querySelector(`.search-wrapper-default`);
   const searchInput = searchForm.querySelector('.search-block__input-string');
 
-  const resultsWrapper = document.querySelector(`.${resultStates.none}`);
   const resultsList = document.querySelector('.result-list');
   const resultsHeader = document.querySelector('.result-header');
 
-  searchInput.addEventListener('click', () => {
-    if (!searchForm.classList.contains(searchStates.active)) {
-      console.log('SEARCH: default -> active');
-      changeContainerState(searchForm, searchStates.active);
-    }
-  });
+  manageSearchState(searchForm, searchInput);
 
   const renderList = (results) => {
     const list = document.createDocumentFragment();
@@ -52,10 +45,6 @@ export const createView = () => {
   const onSearchSubmit = (_listener) => {
     const listener = (event) => {
       event.preventDefault();
-      if (!resultsWrapper.classList.contains(resultStates.live)) {
-        console.log('RESULT: none -> live');
-        changeContainerState(resultsWrapper, resultStates.live);
-      }
       _listener(searchInput.value);
       searchInput.value = '';
     };
