@@ -34,8 +34,14 @@
   color: rgba(255, 255, 255, 0.4);
 }
 
-.search-wrapper-default .search-block__cancel {
-  display: none;
+.search-block__input-string::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  content: url(/src/images/icons/esc.svg);
+  cursor: pointer;
+}
+
+.search-block__input-string::-webkit-search-cancel-button:hover {
+  content: url(/src/images/icons/esc_white.svg);
 }
 
 .search-wrapper-default .search-bar {
@@ -64,7 +70,7 @@
 .search-wrapper-active .search-block__input-string-wrapper {
   display: flex;
   align-items: center;
-  width: 40%;
+  width: 100%;
   margin-left: 12px;
   overflow: hidden;
 }
@@ -82,10 +88,6 @@
   outline: none;
   color: white;
   caret-color: white;
-}
-
-.search-wrapper-active .search-block__cancel {
-  margin-left: auto;
 }
 
 .search-wrapper-active .search-bar {
@@ -135,7 +137,7 @@
 .search-wrapper-scroll .search-block__input-string-wrapper {
   display: flex;
   align-items: center;
-  width: 50%;
+  width: 100%;
   margin-left: 12px;
   overflow: hidden;
 }
@@ -155,10 +157,6 @@
   caret-color: white;
 }
 
-.search-wrapper-scroll .search-block__cancel {
-  margin-left: auto;
-}
-
 .search-wrapper-scroll .search-bar {
   width: 100%;
   height: 2px;
@@ -168,16 +166,6 @@
 
 .search-wrapper-scroll .search-history-block {
   display: none;
-}
-
-.search-block__cancel {
-  background-image: url(/src/images/icons/esc.svg);
-  width: 48px;
-}
-
-.search-block__cancel:hover {
-  cursor: pointer;
-  background-image: url(/src/images/icons/esc_white.svg);
 }
 
 .search-wrapper-active .search-history-block__elem:hover {
