@@ -1,3 +1,5 @@
+import { mirror } from '../helpers/mirror.js';
+
 const movieTemplate = document.createElement('template');
 
 const movieCardStyles = `
@@ -150,19 +152,6 @@ movieTemplate.innerHTML = `
 `;
 
 const params = ['title', 'poster', 'link', 'year', 'genre', 'rating'];
-
-const mirror = (params, element) => {
-  params.forEach((param) => {
-    Object.defineProperty(element, param, {
-      get() {
-        return this.getAttribute(param);
-      },
-      set(value) {
-        this.setAttribute(param, value);
-      },
-    });
-  });
-};
 
 class MovieCard extends HTMLElement {
   constructor() {

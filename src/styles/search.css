@@ -104,8 +104,9 @@
   margin: 20px 0px 0px -4px;
 }
 
-.search-wrapper-active .search-history-block__elem {
+/* .search-wrapper-active .search-history-block__elem {
   display: flex;
+  text-decoration: none;
   align-items: center;
   margin: 4px;
   padding: 6px 16px;
@@ -117,7 +118,7 @@
   font-weight: normal;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.8);
-}
+} */
 
 .search-wrapper-scroll {
   position: fixed;
@@ -168,7 +169,7 @@
   display: none;
 }
 
-.search-wrapper-active .search-history-block__elem:hover {
+/* .search-wrapper-active .search-history-block__elem:hover {
   background-color: white;
   cursor: pointer;
-}
+} */

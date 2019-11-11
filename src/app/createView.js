@@ -7,6 +7,7 @@ const dMovies = getDeclension('фильм', 'фильма', 'фильмов');
 export const createView = () => {
   const searchForm = document.querySelector(`.search-wrapper-default`);
   const searchInput = searchForm.querySelector('.search-block__input-string');
+  const searchTags = searchForm.querySelector('.search-history-block');
 
   const resultsList = document.querySelector('.result-list');
   const resultsHeader = document.querySelector('.result-header');
@@ -34,6 +35,21 @@ export const createView = () => {
     resultsList.appendChild(list);
   };
 
+  const renderSearchHistoryList = (terms) => {
+    const list = document.createDocumentFragment();
+
+    terms.forEach((movie) => {
+      const searchTag = document.createElement('search-tag');
+
+      searchTag.movie = movie;
+
+      list.appendChild(searchTag);
+    });
+
+    clearContainer(searchTags);
+    searchTags.appendChild(list);
+  };
+
   const renderCount = (count) => {
     resultsHeader.textContent = `Нашли ${count} ${dMovies(count)}`;
   };
@@ -52,10 +68,37 @@ export const createView = () => {
     searchForm.addEventListener('submit', listener);
   };
 
+  const onTagClick = (_listener) => {
+    const listener = (event) => {
+      event.preventDefault();
+
+      if (event.target.shadowRoot && !event.altKey) {
+        _listener(event.target.movie);
+      }
+    };
+
+    searchTags.addEventListener('click', listener);
+  };
+
+  const onTagRemove = (_listener) => {
+    const listener = (event) => {
+      event.preventDefault();
+
+      if (event.target.shadowRoot && event.altKey) {
+        _listener(event.target.movie);
+      }
+    };
+
+    searchTags.addEventListener('click', listener);
+  };
+
   return {
     renderList,
+    renderSearchHistoryList,
     renderCount,
     renderError,
     onSearchSubmit,
+    onTagClick,
+    onTagRemove,
   };
 };

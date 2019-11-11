@@ -5,6 +5,7 @@ export const createModel = () => {
     count: 0,
     results: [],
     error: false,
+    searches: [],
   };
 
   let listeners = [];
@@ -23,6 +24,9 @@ export const createModel = () => {
       count: 0,
       results: [],
       error: false,
+      searches: [searchTerm].concat(
+        state.searches.filter((term) => term !== searchTerm)
+      ),
     });
 
     try {
@@ -45,10 +49,18 @@ export const createModel = () => {
     }
   };
 
+  const removeTag = (searchTerm) => {
+    setState({
+      searches: state.searches.filter((term) => term !== searchTerm),
+      error: false,
+    });
+  };
+
   return {
     addListener,
     setState,
     getState,
     search,
+    removeTag,
   };
 };

@@ -3,6 +3,7 @@ export const createViewModel = (model) => {
   let resultsListener = null;
   let countListener = null;
   let errorListener = null;
+  let searchesListener = null;
 
   const update = (nextState) => {
     if (nextState.error && nextState.error === 'Movie not found!') {
@@ -14,8 +15,6 @@ export const createViewModel = (model) => {
       return (
         errorListener && errorListener('Случилась ошибка. Проверьте консоль.')
       );
-    } else {
-      errorListener && errorListener('');
     }
 
     if (nextState.results !== state.results) {
@@ -24,6 +23,10 @@ export const createViewModel = (model) => {
 
     if (nextState.count !== state.count) {
       countListener && countListener(nextState.count);
+    }
+
+    if (nextState.searches !== state.searches) {
+      searchesListener && searchesListener(nextState.searches);
     }
 
     state = nextState;
@@ -35,6 +38,9 @@ export const createViewModel = (model) => {
     bindError: (listener) => (errorListener = listener),
     bindCount: (listener) => (countListener = listener),
     bindResults: (listener) => (resultsListener = listener),
+    bindSearches: (listener) => (searchesListener = listener),
     handleSearchSubmit: (searchTerm) => model.search(searchTerm),
+    handleTagClick: (searchTerm) => model.search(searchTerm),
+    handleTagRemove: (searchTerm) => model.removeTag(searchTerm),
   };
 };
