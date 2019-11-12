@@ -1,12 +1,11 @@
 import { mapMovie } from '../helpers/mapMovie.js';
+import {
+  getApplicationState,
+  setApplicationState,
+} from '../helpers/applicationStateManager.js';
 
 export const createModel = () => {
-  let state = {
-    count: 0,
-    results: [],
-    error: false,
-    searches: [],
-  };
+  let state = getApplicationState();
 
   let listeners = [];
 
@@ -15,6 +14,7 @@ export const createModel = () => {
   const setState = (update) => {
     state = Object.assign({}, state, update);
     listeners.forEach((listener) => listener(state));
+    setApplicationState(state);
   };
 
   const getState = () => state;

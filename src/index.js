@@ -21,3 +21,6 @@ viewModel.bindSearches(view.renderSearchHistoryList);
 view.onSearchSubmit(viewModel.handleSearchSubmit);
 view.onTagClick(viewModel.handleTagClick);
 view.onTagRemove(viewModel.handleTagRemove);
+
+// Init app
+viewModel.init();

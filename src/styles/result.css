@@ -2,6 +2,10 @@
   display: none;
 }
 
+.search-wrapper-default + .result-wrapper-live {
+  display: none;
+}
+
 .result-wrapper-live,
 .result-wrapper-not-found {
   margin-top: 96px;
