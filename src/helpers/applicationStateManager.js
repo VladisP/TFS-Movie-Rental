@@ -18,3 +18,10 @@ export const setApplicationState = ({ count, results, error, searches }) => {
   sessionStorage.setItem('error', JSON.stringify(error));
   localStorage.setItem('searches', JSON.stringify(searches));
 };
+
+export const setSessionCache = (cache) => {
+  sessionStorage.setItem('cache', JSON.stringify(Array.from(cache.entries())));
+};
+
+export const getSessionCache = () =>
+  JSON.parse(sessionStorage.getItem('cache') || '[]');

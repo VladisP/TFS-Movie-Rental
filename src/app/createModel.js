@@ -2,6 +2,8 @@ import { mapMovie } from '../helpers/mapMovie.js';
 import {
   getApplicationState,
   setApplicationState,
+  getSessionCache,
+  setSessionCache,
 } from '../helpers/applicationStateManager.js';
 
 export const createModel = () => {
@@ -19,7 +21,11 @@ export const createModel = () => {
 
   const getState = () => state;
 
+  const searchCache = new Map(getSessionCache());
+
   const search = async (searchTerm) => {
+    searchTerm = searchTerm.toLowerCase();
+
     setState({
       count: 0,
       results: [],
@@ -30,11 +36,17 @@ export const createModel = () => {
     });
 
     try {
-      const data = await fetch(
-        `http://www.omdbapi.com/?apikey=2fe365ef&type=movie&s=${searchTerm}`
-      ).then((r) => r.json());
+      const data = searchCache.has(searchTerm)
+        ? searchCache.get(searchTerm)
+        : await fetch(
+            `http://www.omdbapi.com/?apikey=2fe365ef&type=movie&s=${searchTerm}`
+          ).then((r) => r.json());
 
       if (data.Response === 'True') {
+        if (!searchCache.has(searchTerm)) {
+          searchCache.set(searchTerm, data);
+          setSessionCache(searchCache);
+        }
         setState({
           count: data.totalResults,
           results: data.Search.map(mapMovie),
