@@ -13,7 +13,7 @@ export const manageSearchState = (searchForm, searchInput) => {
   };
 
   searchInput.addEventListener('click', function listener() {
-    if (searchForm.className !== searchStates.active) {
+    if (searchForm.className === searchStates.default) {
       changeSearchState(searchStates.active);
     }
     searchInput.removeEventListener('click', listener);
@@ -21,16 +21,32 @@ export const manageSearchState = (searchForm, searchInput) => {
 
   const startCoords = searchForm.getBoundingClientRect().top;
 
+  const addClone = () => {
+    const tempClone = searchForm.cloneNode(true);
+    tempClone.classList.add('temp-clone');
+    tempClone.style.visibility = 'hidden';
+    searchForm.parentElement.insertBefore(tempClone, searchForm);
+  };
+
+  const removeClone = () => {
+    const firstChild = searchForm.parentElement.firstElementChild;
+    if (firstChild.classList.contains('temp-clone')) {
+      firstChild.remove();
+    }
+  };
+
   document.addEventListener('scroll', () => {
     if (
       window.pageYOffset < startCoords &&
       searchForm.className !== searchStates.active
     ) {
+      removeClone();
       changeSearchState(searchStates.active);
     } else if (
       window.pageYOffset >= startCoords &&
       searchForm.className !== searchStates.scroll
     ) {
+      addClone();
       changeSearchState(searchStates.scroll);
     }
   });
