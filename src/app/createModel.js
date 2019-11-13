@@ -9,6 +9,7 @@ import {
   loadMessages,
   notifyLoadListener,
 } from '../helpers/loadStateManager.js';
+import { getMoreMoviesInfo } from '../helpers/getMoreMoviesInfo.js';
 
 export const createModel = () => {
   let state = getApplicationState();
@@ -46,28 +47,31 @@ export const createModel = () => {
         data = searchCache.get(searchTerm);
       } else {
         notifyLoadListener(listeners, loadMessages.start);
+
         data = await fetch(
           `http://www.omdbapi.com/?apikey=2fe365ef&type=movie&s=${searchTerm}`
         ).then((r) => r.json());
-        notifyLoadListener(listeners, loadMessages.end);
+
+        if (data.Response !== 'True') {
+          throw data.Error;
+        }
+
+        data = await getMoreMoviesInfo(data);
       }
 
-      if (data.Response === 'True') {
-        if (!searchCache.has(searchTerm)) {
-          searchCache.set(searchTerm, data);
-          setSessionCache(searchCache);
-        }
-        setState({
-          count: data.totalResults,
-          results: data.Search.map(mapMovie),
-        });
-      } else {
-        setState({
-          error: data.Error,
-        });
+      if (!searchCache.has(searchTerm)) {
+        searchCache.set(searchTerm, data);
+        setSessionCache(searchCache);
       }
+
+      setState({
+        count: data.count,
+        results: data.moviesInfo.map(mapMovie),
+      });
     } catch (error) {
       setState({ error });
+    } finally {
+      notifyLoadListener(listeners, loadMessages.end);
     }
   };
 

@@ -1,4 +1,5 @@
 import { mirror } from '../helpers/mirror.js';
+import { getImageByRating } from '../helpers/getImageByRating.js';
 
 const movieTemplate = document.createElement('template');
 
@@ -132,7 +133,7 @@ const movieCardHtml = `
             <div class="result-list__poster-item__decore-background"></div>
             <div class="result-list__poster-item__description-wrapper">
                 <div class="result-list__poster-item__rating-wrapper">
-                    <img src="" />
+                    <img class="result-list__poster-item__rating-image" src="" />
                     <div class="result-list__poster-item__rating"></div>
                 </div>
                 <div class="result-list__poster-item__title"></div>
@@ -191,6 +192,10 @@ class MovieCard extends HTMLElement {
         ).textContent = newValue);
 
       case 'rating':
+        this.shadowRoot.querySelector(
+          '.result-list__poster-item__rating-image'
+        ).src = getImageByRating(Number.parseFloat(newValue));
+
         return (this.shadowRoot.querySelector(
           '.result-list__poster-item__rating'
         ).textContent = newValue);
