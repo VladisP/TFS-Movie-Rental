@@ -1,6 +1,7 @@
 import { clearContainer } from '../helpers/clearContainer.js';
 import { getDeclension } from '../helpers/getDeclension.js';
 import { manageSearchState } from '../helpers/viewStateManager.js';
+import { loadMessages } from '../helpers/loadStateManager.js';
 
 const dMovies = getDeclension('фильм', 'фильма', 'фильмов');
 
@@ -8,6 +9,8 @@ export const createView = () => {
   const searchForm = document.querySelector(`.search-wrapper-default`);
   const searchInput = searchForm.querySelector('.search-block__input-string');
   const searchTags = searchForm.querySelector('.search-history-block');
+
+  const loader = document.querySelector('.loader-invisible');
 
   const resultsList = document.querySelector('.result-list');
   const resultsHeader = document.querySelector('.result-header');
@@ -58,6 +61,18 @@ export const createView = () => {
     resultsHeader.textContent = error;
   };
 
+  const renderLoader = (message) => {
+    switch (message) {
+      case loadMessages.start:
+        loader.className = 'loader-visible';
+        break;
+      case loadMessages.end:
+        loader.className = 'loader-invisible';
+        break;
+    }
+  };
+  renderLoader.isLoadListener = true;
+
   const onSearchSubmit = (_listener) => {
     const listener = (event) => {
       event.preventDefault();
@@ -97,6 +112,7 @@ export const createView = () => {
     renderSearchHistoryList,
     renderCount,
     renderError,
+    renderLoader,
     onSearchSubmit,
     onTagClick,
     onTagRemove,

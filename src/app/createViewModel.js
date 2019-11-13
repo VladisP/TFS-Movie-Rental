@@ -37,6 +37,7 @@ export const createViewModel = (model) => {
     bindCount: (listener) => (countListener = listener),
     bindResults: (listener) => (resultsListener = listener),
     bindSearches: (listener) => (searchesListener = listener),
+    bindLoading: (listener) => model.addListener(listener),
     handleSearchSubmit: (searchTerm) => model.search(searchTerm),
     handleTagClick: (searchTerm) => model.search(searchTerm),
     handleTagRemove: (searchTerm) => model.removeTag(searchTerm),

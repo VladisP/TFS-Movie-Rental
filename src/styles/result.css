@@ -2,7 +2,7 @@
   display: none;
 }
 
-.search-wrapper-default + .result-wrapper-live {
+.search-wrapper-default + .loader-invisible + .result-wrapper-live {
   display: none;
 }
 

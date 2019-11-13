@@ -5,6 +5,10 @@ import {
   getSessionCache,
   setSessionCache,
 } from '../helpers/applicationStateManager.js';
+import {
+  loadMessages,
+  notifyLoadListener,
+} from '../helpers/loadStateManager.js';
 
 export const createModel = () => {
   let state = getApplicationState();
@@ -36,11 +40,17 @@ export const createModel = () => {
     });
 
     try {
-      const data = searchCache.has(searchTerm)
-        ? searchCache.get(searchTerm)
-        : await fetch(
-            `http://www.omdbapi.com/?apikey=2fe365ef&type=movie&s=${searchTerm}`
-          ).then((r) => r.json());
+      let data = null;
+
+      if (searchCache.has(searchTerm)) {
+        data = searchCache.get(searchTerm);
+      } else {
+        notifyLoadListener(listeners, loadMessages.start);
+        data = await fetch(
+          `http://www.omdbapi.com/?apikey=2fe365ef&type=movie&s=${searchTerm}`
+        ).then((r) => r.json());
+        notifyLoadListener(listeners, loadMessages.end);
+      }
 
       if (data.Response === 'True') {
         if (!searchCache.has(searchTerm)) {
