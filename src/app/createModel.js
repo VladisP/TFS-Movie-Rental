@@ -14,7 +14,7 @@ import { getMoreMoviesInfo } from '../helpers/getMoreMoviesInfo.js';
 export const createModel = () => {
   let state = getApplicationState();
 
-  let listeners = [];
+  const listeners = [];
 
   const addListener = (listener) => listeners.push(listener);
 
