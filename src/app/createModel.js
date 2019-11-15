@@ -11,7 +11,7 @@ import {
 } from '../helpers/loadStateManager.js';
 import { getMoreMoviesInfo } from '../helpers/getMoreMoviesInfo.js';
 
-export const createModel = () => {
+const createModel = () => {
   let state = getApplicationState();
 
   const listeners = [];
@@ -90,3 +90,5 @@ export const createModel = () => {
     removeTag,
   };
 };
+
+export const model = createModel();

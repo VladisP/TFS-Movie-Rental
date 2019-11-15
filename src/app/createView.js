@@ -5,7 +5,7 @@ import { loadMessages } from '../helpers/loadStateManager.js';
 
 const dMovies = getDeclension('фильм', 'фильма', 'фильмов');
 
-export const createView = () => {
+const createView = () => {
   const searchForm = document.querySelector(`.search-wrapper-default`);
   const searchInput = searchForm.querySelector('.search-block__input-string');
   const searchTags = searchForm.querySelector('.search-history-block');
@@ -120,3 +120,5 @@ export const createView = () => {
     onTagRemove,
   };
 };
+
+export const view = createView();

@@ -1,4 +1,6 @@
-export const createViewModel = (model) => {
+import { model } from './createModel.js';
+
+const createViewModel = (model) => {
   let state = {};
   let resultsListener = null;
   let countListener = null;
@@ -47,3 +49,5 @@ export const createViewModel = (model) => {
     },
   };
 };
+
+export const viewModel = createViewModel(model);
