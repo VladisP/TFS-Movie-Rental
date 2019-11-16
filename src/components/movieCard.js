@@ -1,9 +1,25 @@
 import { mirror } from '../helpers/mirror.js';
+import { getImageByRating } from '../helpers/getImageByRating.js';
+import { makeAttributeChangingMap } from '../helpers/makeAttributeChangingMap.js';
+
+const movieCardClasses = {
+  movie: 'movie',
+  link: 'movie__link',
+  image: 'movie__image',
+  background: 'movie__decore-background',
+  descriptionWrapper: 'movie__description-wrapper',
+  ratingWrapper: 'movie__rating-wrapper',
+  ratingImage: 'movie__rating-image',
+  ratingValue: 'movie__rating',
+  title: 'movie__title',
+  genre: 'movie__genre',
+  year: 'movie__year',
+};
 
 const movieTemplate = document.createElement('template');
 
 const movieCardStyles = `
-  .result-list__poster-item {
+  .${movieCardClasses.movie} {
     border-radius: 12px;
     overflow: hidden;
     position: relative;
@@ -12,24 +28,24 @@ const movieCardStyles = `
     width: 100%;
   }
 
-  .result-list__poster-item__link {
+  .${movieCardClasses.link} {
     display: block;
     height: 100%;
     width: 100%;
   }
 
-  .result-list__poster-item__image {
+  .${movieCardClasses.image} {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  .result-list__poster-item__decore-background {
+  .${movieCardClasses.background} {
     display: none;
   }
 
-  .result-list__poster-item__description-wrapper {
+  .${movieCardClasses.descriptionWrapper} {
     position: absolute;
     overflow: hidden;
     max-height: 40%;
@@ -39,11 +55,11 @@ const movieCardStyles = `
     display: none;
   }
 
-  .result-list__poster-item:hover {
+  .${movieCardClasses.movie}:hover {
     cursor: pointer;
   }
   
-  .result-list__poster-item:hover .result-list__poster-item__decore-background {
+  .${movieCardClasses.movie}:hover .${movieCardClasses.background} {
     display: block;
     border-radius: 12px;
     position: absolute;
@@ -59,7 +75,7 @@ const movieCardStyles = `
     backdrop-filter: blur(2px);
   }
   
-  .result-list__poster-item:hover .result-list__poster-item__description-wrapper {
+  .${movieCardClasses.movie}:hover .${movieCardClasses.descriptionWrapper} {
     display: grid;
     grid-template-columns: minmax(0px, 3fr) minmax(0px, 1fr);
     grid-template-rows: auto auto auto;
@@ -71,13 +87,13 @@ const movieCardStyles = `
     column-gap: 46px;
   }
   
-  .result-list__poster-item__rating-wrapper {
+  .${movieCardClasses.ratingWrapper} {
     grid-area: rating;
     overflow: hidden;
     display: flex;
   }
   
-  .result-list__poster-item__rating {
+  .${movieCardClasses.ratingValue} {
     overflow: hidden;
     display: flex;
     align-items: flex-end;
@@ -88,7 +104,7 @@ const movieCardStyles = `
     color: white;
   }
   
-  .result-list__poster-item__title {
+  .${movieCardClasses.title} {
     grid-area: title;
     display: flex;
     align-items: center;
@@ -99,7 +115,7 @@ const movieCardStyles = `
     color: white;
   }
   
-  .result-list__poster-item__genre {
+  .${movieCardClasses.genre} {
     grid-area: genre;
     display: flex;
     align-items: center;
@@ -111,7 +127,7 @@ const movieCardStyles = `
     margin-top: 12px;
   }
   
-  .result-list__poster-item__year {
+  .${movieCardClasses.year} {
     grid-area: year;
     display: flex;
     align-items: center;
@@ -126,18 +142,18 @@ const movieCardStyles = `
 `;
 
 const movieCardHtml = `
-    <div class="result-list__poster-item">
-        <a href="" class="result-list__poster-item__link">
-            <img class="result-list__poster-item__image" src="/src/images/placeholder.png" />
-            <div class="result-list__poster-item__decore-background"></div>
-            <div class="result-list__poster-item__description-wrapper">
-                <div class="result-list__poster-item__rating-wrapper">
-                    <img src="" />
-                    <div class="result-list__poster-item__rating"></div>
+    <div class="${movieCardClasses.movie}">
+        <a href="" class="${movieCardClasses.link}">
+            <img class="${movieCardClasses.image}" src="/src/images/placeholder.png" />
+            <div class="${movieCardClasses.background}"></div>
+            <div class="${movieCardClasses.descriptionWrapper}">
+                <div class="${movieCardClasses.ratingWrapper}">
+                    <img class="${movieCardClasses.ratingImage}" src="" />
+                    <div class="${movieCardClasses.ratingValue}"></div>
                 </div>
-                <div class="result-list__poster-item__title"></div>
-                <div class="result-list__poster-item__genre"></div>
-                <div class="result-list__poster-item__year"></div>
+                <div class="${movieCardClasses.title}"></div>
+                <div class="${movieCardClasses.genre}"></div>
+                <div class="${movieCardClasses.year}"></div>
             </div>
         </a>
     </div>
@@ -153,6 +169,39 @@ movieTemplate.innerHTML = `
 
 const params = ['title', 'poster', 'link', 'year', 'genre', 'rating'];
 
+const attrChangedCallbacks = {
+  title(value) {
+    this.shadowRoot.querySelector(
+      `.${movieCardClasses.title}`
+    ).textContent = value;
+  },
+  poster(value) {
+    this.shadowRoot.querySelector(`.${movieCardClasses.image}`).src = value;
+  },
+  link(value) {
+    this.shadowRoot.querySelector(`.${movieCardClasses.link}`).href = value;
+  },
+  year(value) {
+    this.shadowRoot.querySelector(
+      `.${movieCardClasses.year}`
+    ).textContent = value;
+  },
+  rating(value) {
+    this.shadowRoot.querySelector(
+      `.${movieCardClasses.ratingImage}`
+    ).src = getImageByRating(Number.parseFloat(value));
+
+    this.shadowRoot.querySelector(
+      `.${movieCardClasses.ratingValue}`
+    ).textContent = value;
+  },
+  genre(value) {
+    this.shadowRoot.querySelector(
+      `.${movieCardClasses.genre}`
+    ).textContent = value;
+  },
+};
+
 class MovieCard extends HTMLElement {
   constructor() {
     super();
@@ -162,6 +211,11 @@ class MovieCard extends HTMLElement {
 
     shadow.appendChild(template);
     mirror(params, this);
+
+    this.attributeChangingMap = makeAttributeChangingMap(
+      attrChangedCallbacks,
+      this
+    );
   }
 
   static get observedAttributes() {
@@ -169,37 +223,7 @@ class MovieCard extends HTMLElement {
   }
 
   attributeChangedCallback(param, oldValue, newValue) {
-    switch (param) {
-      case 'title':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__title'
-        ).textContent = newValue);
-
-      case 'poster':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__image'
-        ).src = newValue);
-
-      case 'link':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__link'
-        ).href = newValue);
-
-      case 'year':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__year'
-        ).textContent = newValue);
-
-      case 'rating':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__rating'
-        ).textContent = newValue);
-
-      case 'genre':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__genre'
-        ).textContent = newValue);
-    }
+    this.attributeChangingMap[param](newValue);
   }
 }
 

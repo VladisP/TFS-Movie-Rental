@@ -1,9 +1,14 @@
 import { mirror } from '../helpers/mirror.js';
+import { makeAttributeChangingMap } from '../helpers/makeAttributeChangingMap.js';
+
+const searchTagClasses = {
+  searchTag: 'search-tag',
+};
 
 const searchTagTemplate = document.createElement('template');
 
 const searchTagStyles = `
-  .search-history-block__elem {
+  .${searchTagClasses.searchTag} {
     display: flex;
     align-items: center;
     margin: 4px;
@@ -18,14 +23,14 @@ const searchTagStyles = `
     color: rgba(0, 0, 0, 0.8);
   }
 
-  .search-history-block__elem:hover {
+  .${searchTagClasses.searchTag}:hover {
     background-color: white;
     cursor: pointer;
   }
 `;
 
 const searchTagHtml = `
-    <div class="search-history-block__elem"></div>
+    <div class="${searchTagClasses.searchTag}"></div>
 `;
 
 searchTagTemplate.innerHTML = `
@@ -38,6 +43,14 @@ searchTagTemplate.innerHTML = `
 
 const params = ['movie'];
 
+const attrChangedCallbacks = {
+  movie(value) {
+    this.shadowRoot.querySelector(
+      `.${searchTagClasses.searchTag}`
+    ).textContent = value;
+  },
+};
+
 class SearchTag extends HTMLElement {
   constructor() {
     super();
@@ -47,6 +60,11 @@ class SearchTag extends HTMLElement {
 
     shadow.appendChild(template);
     mirror(params, this);
+
+    this.attributeChangingMap = makeAttributeChangingMap(
+      attrChangedCallbacks,
+      this
+    );
   }
 
   static get observedAttributes() {
@@ -54,12 +72,7 @@ class SearchTag extends HTMLElement {
   }
 
   attributeChangedCallback(param, oldValue, newValue) {
-    switch (param) {
-      case 'movie':
-        return (this.shadowRoot.querySelector(
-          '.search-history-block__elem'
-        ).textContent = newValue);
-    }
+    this.attributeChangingMap[param](newValue);
   }
 }
 

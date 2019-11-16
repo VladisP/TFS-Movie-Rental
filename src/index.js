@@ -1,15 +1,10 @@
 //App
-import { createModel } from './app/createModel.js';
-import { createViewModel } from './app/createViewModel.js';
-import { createView } from './app/createView.js';
+import { viewModel } from './app/createViewModel.js';
+import { view } from './app/createView.js';
 
 //Components
 import './components/movieCard.js';
 import './components/searchTag.js';
-
-const model = createModel();
-const view = createView();
-const viewModel = createViewModel(model);
 
 // ViewModel -> View
 viewModel.bindCount(view.renderCount);
