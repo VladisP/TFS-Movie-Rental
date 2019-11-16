@@ -1,10 +1,14 @@
 import { mirror } from '../helpers/mirror.js';
 import { makeAttributeChangingMap } from '../helpers/makeAttributeChangingMap.js';
 
+const searchTagClasses = {
+  searchTag: 'search-tag',
+};
+
 const searchTagTemplate = document.createElement('template');
 
 const searchTagStyles = `
-  .search-history-block__elem {
+  .${searchTagClasses.searchTag} {
     display: flex;
     align-items: center;
     margin: 4px;
@@ -19,14 +23,14 @@ const searchTagStyles = `
     color: rgba(0, 0, 0, 0.8);
   }
 
-  .search-history-block__elem:hover {
+  .${searchTagClasses.searchTag}:hover {
     background-color: white;
     cursor: pointer;
   }
 `;
 
 const searchTagHtml = `
-    <div class="search-history-block__elem"></div>
+    <div class="${searchTagClasses.searchTag}"></div>
 `;
 
 searchTagTemplate.innerHTML = `
@@ -42,7 +46,7 @@ const params = ['movie'];
 const attrChangedCallbacks = {
   movie(value) {
     this.shadowRoot.querySelector(
-      '.search-history-block__elem'
+      `.${searchTagClasses.searchTag}`
     ).textContent = value;
   },
 };
