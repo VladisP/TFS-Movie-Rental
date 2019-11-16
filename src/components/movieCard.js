@@ -1,5 +1,6 @@
 import { mirror } from '../helpers/mirror.js';
 import { getImageByRating } from '../helpers/getImageByRating.js';
+import { makeAttributeChangingMap } from '../helpers/makeAttributeChangingMap.js';
 
 const movieTemplate = document.createElement('template');
 
@@ -154,6 +155,43 @@ movieTemplate.innerHTML = `
 
 const params = ['title', 'poster', 'link', 'year', 'genre', 'rating'];
 
+const attrChangedCallbacks = {
+  title(value) {
+    this.shadowRoot.querySelector(
+      '.result-list__poster-item__title'
+    ).textContent = value;
+  },
+  poster(value) {
+    this.shadowRoot.querySelector(
+      '.result-list__poster-item__image'
+    ).src = value;
+  },
+  link(value) {
+    this.shadowRoot.querySelector(
+      '.result-list__poster-item__link'
+    ).href = value;
+  },
+  year(value) {
+    this.shadowRoot.querySelector(
+      '.result-list__poster-item__year'
+    ).textContent = value;
+  },
+  rating(value) {
+    this.shadowRoot.querySelector(
+      '.result-list__poster-item__rating-image'
+    ).src = getImageByRating(Number.parseFloat(value));
+
+    this.shadowRoot.querySelector(
+      '.result-list__poster-item__rating'
+    ).textContent = value;
+  },
+  genre(value) {
+    this.shadowRoot.querySelector(
+      '.result-list__poster-item__genre'
+    ).textContent = value;
+  },
+};
+
 class MovieCard extends HTMLElement {
   constructor() {
     super();
@@ -163,6 +201,11 @@ class MovieCard extends HTMLElement {
 
     shadow.appendChild(template);
     mirror(params, this);
+
+    this.attributeChangingMap = makeAttributeChangingMap(
+      attrChangedCallbacks,
+      this
+    );
   }
 
   static get observedAttributes() {
@@ -170,41 +213,7 @@ class MovieCard extends HTMLElement {
   }
 
   attributeChangedCallback(param, oldValue, newValue) {
-    switch (param) {
-      case 'title':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__title'
-        ).textContent = newValue);
-
-      case 'poster':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__image'
-        ).src = newValue);
-
-      case 'link':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__link'
-        ).href = newValue);
-
-      case 'year':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__year'
-        ).textContent = newValue);
-
-      case 'rating':
-        this.shadowRoot.querySelector(
-          '.result-list__poster-item__rating-image'
-        ).src = getImageByRating(Number.parseFloat(newValue));
-
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__rating'
-        ).textContent = newValue);
-
-      case 'genre':
-        return (this.shadowRoot.querySelector(
-          '.result-list__poster-item__genre'
-        ).textContent = newValue);
-    }
+    this.attributeChangingMap[param](newValue);
   }
 }
 

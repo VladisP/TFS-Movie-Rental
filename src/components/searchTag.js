@@ -1,4 +1,5 @@
 import { mirror } from '../helpers/mirror.js';
+import { makeAttributeChangingMap } from '../helpers/makeAttributeChangingMap.js';
 
 const searchTagTemplate = document.createElement('template');
 
@@ -38,6 +39,14 @@ searchTagTemplate.innerHTML = `
 
 const params = ['movie'];
 
+const attrChangedCallbacks = {
+  movie(value) {
+    this.shadowRoot.querySelector(
+      '.search-history-block__elem'
+    ).textContent = value;
+  },
+};
+
 class SearchTag extends HTMLElement {
   constructor() {
     super();
@@ -47,6 +56,11 @@ class SearchTag extends HTMLElement {
 
     shadow.appendChild(template);
     mirror(params, this);
+
+    this.attributeChangingMap = makeAttributeChangingMap(
+      attrChangedCallbacks,
+      this
+    );
   }
 
   static get observedAttributes() {
@@ -54,12 +68,7 @@ class SearchTag extends HTMLElement {
   }
 
   attributeChangedCallback(param, oldValue, newValue) {
-    switch (param) {
-      case 'movie':
-        return (this.shadowRoot.querySelector(
-          '.search-history-block__elem'
-        ).textContent = newValue);
-    }
+    this.attributeChangingMap[param](newValue);
   }
 }
 
