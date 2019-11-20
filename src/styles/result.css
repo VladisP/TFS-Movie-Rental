@@ -1,0 +1,27 @@
+.search-wrapper-default + .loader-invisible + .result-wrapper-live {
+  display: none;
+}
+
+.result-wrapper-live {
+  margin-top: 96px;
+  padding: 0 80px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.result-wrapper-live .result-header {
+  display: flex;
+  align-items: center;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 36px;
+  color: white;
+}
+
+.result-wrapper-live .result-list {
+  display: grid;
+  margin: 36px 0px 80px;
+  grid-template-columns: repeat(auto-fill, minmax(22%, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 24px;
+}
