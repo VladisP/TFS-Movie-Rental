@@ -1,2 +1,5 @@
-# TFS Frontend Movie Rental
+# Tinkoff Movie Rental
 
+Tinkoff Movie Rental - приложение для поиска фильмов, использующее
+OMDb API (одно из наиболее интересных домашних заданий в Тинькофф
+Финтех Школе)
